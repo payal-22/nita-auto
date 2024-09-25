@@ -57,7 +57,10 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Create an Account')),
+      appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 85, 99, 167),
+          title: Text('Create an Account')),
+      backgroundColor: const Color.fromARGB(255, 250, 220, 176),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Form(
