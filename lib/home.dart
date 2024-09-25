@@ -35,39 +35,43 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        // Wrap with SingleChildScrollView to prevent overflow
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Number of People vs Time (Today)',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20),
-              // Placeholder for the graph
-              SizedBox(
-                height: 250,
-                child: BarGraphScreen(),
-              ),
+      body: Container(
+        color: const Color.fromARGB(255, 250, 230, 170),
+        child: SingleChildScrollView(
+          // Wrap with SingleChildScrollView to prevent overflow
 
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => Addyour(),
-                  );
-                },
-                child: Text('Add Your Trip Details'),
-              ),
-              SizedBox(height: 20),
-              // Add the Comments Section below the button
-              CommentsSection(),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Number of People vs Time (Today)',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                // Placeholder for the graph
+                SizedBox(
+                  height: 250,
+                  child: BarGraphScreen(),
+                ),
+
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => Addyour(),
+                    );
+                  },
+                  child: Text('Add Your Trip Details'),
+                ),
+                SizedBox(height: 20),
+                // Add the Comments Section below the button
+                CommentsSection(),
+              ],
+            ),
           ),
         ),
       ),
