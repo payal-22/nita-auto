@@ -20,6 +20,7 @@ class _AddyourState extends State<Addyour> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 252, 229, 176),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
