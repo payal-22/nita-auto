@@ -52,9 +52,25 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 20),
                 // Placeholder for the graph
-                SizedBox(
-                  height: 250,
-                  child: BarGraphScreen(),
+                // SizedBox(
+                //   height: 250,
+                //   child: BarGraphScreen(),
+                // ),
+                Container(
+                  height: 300, // Increase height to avoid overflow
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: const BarGraphScreen(),
                 ),
 
                 SizedBox(height: 20),
