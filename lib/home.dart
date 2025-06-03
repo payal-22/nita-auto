@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nita_auto/addyour.dart';
-// import 'package:nita_auto/graph.dart';
+import 'package:nita_auto/graph.dart'; // Import the updated graph
 import 'package:nita_auto/screens/bar_graph_screen.dart';
 import 'firebase_functions.dart';
-import 'comment.dart'; // Import the Comments section
+import 'comment.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 93, 94, 146),
-        title: Text(
+        title: const Text(
           'Auto-Mate',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -27,7 +27,17 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.bar_chart, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TravelGraph()),
+              );
+            },
+            tooltip: 'View Detailed Graph',
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () async {
               await _firebaseFunctions.signOut();
               Navigator.pushReplacementNamed(context, '/login');
@@ -38,26 +48,20 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         color: const Color.fromARGB(255, 250, 230, 170),
         child: SingleChildScrollView(
-          // Wrap with SingleChildScrollView to prevent overflow
-
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Number of People vs Time (Today)',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
-                // Placeholder for the graph
-                // SizedBox(
-                //   height: 250,
-                //   child: BarGraphScreen(),
-                // ),
+                const SizedBox(height: 20),
+                // Updated graph container
                 Container(
-                  height: 300, // Increase height to avoid overflow
+                  height: 300,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -72,114 +76,104 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: const BarGraphScreen(),
                 ),
-
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => Addyour(),
-                    );
-                  },
-                  child: Text('Add Your Trip Details'),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const Addyour(),
+                          );
+                        },
+                        icon: const Icon(Icons.add, color: Colors.white),
+                        label: const Text(
+                          'Add Your Trip Details',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.purple,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TravelGraph(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.analytics, color: Colors.white),
+                      label: const Text(
+                        'Detailed View',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 93, 94, 146),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20),
-                // Add the Comments Section below the button
-                CommentsSection(),
+                const SizedBox(height: 20),
+                // Add helpful info card
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.blue.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.info, color: Colors.blue.shade700),
+                          const SizedBox(width: 8),
+                          Text(
+                            'How to Use Auto-Mate',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        '• Add your travel time to let others know when you\'re traveling\n'
+                        '• Check the graph to find peak travel times\n'
+                        '• Use comments below to coordinate with other students\n'
+                        '• Share autos when 4-5 people travel at the same time',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Comments Section
+                const CommentsSection(),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-}
-
-// Dialog to add trip details
-class AddTripDialog extends StatefulWidget {
-  @override
-  _AddTripDialogState createState() => _AddTripDialogState();
-}
-
-class _AddTripDialogState extends State<AddTripDialog> {
-  final TextEditingController _timeController = TextEditingController();
-  final TextEditingController _numPeopleController = TextEditingController();
-  final _formKey = GlobalKey<FormState>(); // Form key for validation
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Add Trip Details'),
-      content: SingleChildScrollView(
-        // Ensure content is scrollable if needed
-        child: Form(
-          key: _formKey, // Form for validation
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: _timeController,
-                decoration: InputDecoration(labelText: 'Time (HH:MM)'),
-                keyboardType: TextInputType.datetime,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a valid time';
-                  }
-                  // Add more validation for correct time format if needed
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _numPeopleController,
-                decoration: InputDecoration(labelText: 'Number of People'),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter number of people';
-                  }
-                  if (int.tryParse(value) == null || int.parse(value) <= 0) {
-                    return 'Enter a valid number of people';
-                  }
-                  return null;
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              // Process the input (for now just print the values)
-              print(
-                  "Time: ${_timeController.text}, People: ${_numPeopleController.text}");
-
-              // Clear text fields after submission
-              _timeController.clear();
-              _numPeopleController.clear();
-
-              // Close the dialog
-              Navigator.pop(context);
-            }
-          },
-          child: Text('Add'),
-        ),
-      ],
-    );
-  }
-
-  @override
-  void dispose() {
-    // Dispose controllers to free up resources
-    _timeController.dispose();
-    _numPeopleController.dispose();
-    super.dispose();
   }
 }
