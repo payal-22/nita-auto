@@ -34,7 +34,7 @@ An app designed to help students efficiently coordinate shared auto rides from c
 - Create a new branch (git checkout -b feature-branch).
 - Commit your changes (git commit -m 'Add new feature').
 - Push to the branch (git push origin feature-branch).
-- Create a pull request. 
+- Create a pull request . 
 
 
 
