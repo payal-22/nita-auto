@@ -31,6 +31,20 @@
 
   <title>nita_auto</title>
   <link rel="manifest" href="manifest.json">
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyDrsVF9f62ay6JuJSntiT01Obd3iIKBTfc",
+  authDomain: "nita-auto.firebaseapp.com",
+  projectId: "nita-auto",
+  storageBucket: "nita-auto.firebasestorage.app",
+  messagingSenderId: "390184165791",
+  appId: "1:390184165791:web:ee9c9160e9e13092c0ddaa"
+};
+firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>

@@ -65,4 +65,11 @@ class DefaultFirebaseOptions {
     storageBucket: 'nita-auto.appspot.com',
     iosBundleId: 'com.example.nitaAuto',
   );
+  static const FirebaseOptions web = FirebaseOptions(
+      apiKey: "AIzaSyDrsVF9f62ay6JuJSntiT01Obd3iIKBTfc",
+      authDomain: "nita-auto.firebaseapp.com",
+      projectId: "nita-auto",
+      storageBucket: "nita-auto.firebasestorage.app",
+      messagingSenderId: "390184165791",
+      appId: "1:390184165791:web:ee9c9160e9e13092c0ddaa");
 }
